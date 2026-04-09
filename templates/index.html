@@ -4,117 +4,165 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>TheBDWire — Bangladesh News</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet"/>
 <style>
-:root{
-  --bg:#0f1117;
-  --surface:#1a1d27;
-  --surface2:#22263a;
-  --border:#2a2d3e;
-  --red:#e63946;
-  --red-dim:#c1121f;
-  --text:#f0f0f0;
-  --muted:#8b90a0;
-  --white:#ffffff;
-  --radius:8px;
-  --shadow:0 4px 20px rgba(0,0,0,0.4);
-}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
-header{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;}
-.header-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
-.brand h1{font-size:1.4rem;font-weight:800;color:var(--white);letter-spacing:-0.5px;}
-.brand h1 span{color:var(--red);}
-.brand-sub{font-size:0.72rem;color:var(--muted);margin-top:1px;}
-.header-right{display:flex;align-items:center;gap:14px;}
-.live-pill{background:var(--red);color:#fff;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:0.5px;animation:blink 1.8s infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.5;}}
-.count-pill{background:var(--surface2);border:1px solid var(--border);color:var(--muted);font-size:0.75rem;padding:4px 10px;border-radius:20px;}
-.ticker{background:var(--red-dim);border-bottom:1px solid rgba(255,255,255,0.05);overflow:hidden;}
-.ticker-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:34px;display:flex;align-items:center;gap:14px;}
-.ticker-tag{background:var(--red);color:#fff;font-size:0.65rem;font-weight:800;padding:3px 8px;border-radius:4px;white-space:nowrap;letter-spacing:1px;}
-.ticker-scroll{font-size:0.8rem;color:#ffe8e8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.tabs-wrap{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:60px;z-index:100;}
-.tabs-inner{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;}
-.tabs-inner::-webkit-scrollbar{display:none;}
-.tab-btn{background:none;border:none;color:var(--muted);padding:14px 18px;cursor:pointer;font-size:0.82rem;font-weight:500;white-space:nowrap;border-bottom:2px solid transparent;font-family:'Inter',sans-serif;transition:all 0.2s;}
-.tab-btn:hover{color:var(--white);}
-.tab-btn.active{color:var(--red);border-bottom-color:var(--red);font-weight:700;}
-.container{max-width:1280px;margin:0 auto;padding:28px 24px 60px;}
-.sec-label{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
-.sec-label h2{font-size:0.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;}
-.sec-label::before{content:'';width:3px;height:16px;background:var(--red);border-radius:2px;flex-shrink:0;}
-.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
-.hero-wrap{display:grid;grid-template-columns:3fr 2fr;gap:16px;margin-bottom:36px;}
-@media(max-width:860px){.hero-wrap{grid-template-columns:1fr;}}
-.hero-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color 0.2s;}
-.hero-card:hover{border-color:var(--red);}
-.hero-card img{width:100%;height:300px;object-fit:cover;display:block;}
-.hero-img-fallback{width:100%;height:300px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:3rem;}
-.hero-body{padding:20px;}
-.topic-tag{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--red);margin-bottom:10px;display:block;}
-.hero-body h2{font-size:1.22rem;font-weight:700;line-height:1.45;margin-bottom:10px;color:var(--white);}
-.hero-body h2 a{text-decoration:none;color:inherit;}
-.hero-body h2 a:hover{color:var(--red);}
-.hero-body p{font-size:0.83rem;color:var(--muted);line-height:1.6;margin-bottom:12px;}
-.meta-row{display:flex;align-items:center;gap:8px;font-size:0.72rem;color:var(--muted);}
-.source-dot{width:6px;height:6px;background:var(--red);border-radius:50%;flex-shrink:0;}
-.source-name{font-weight:600;color:var(--text);}
-.side-list{display:flex;flex-direction:column;gap:10px;}
-.mini-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;display:flex;gap:12px;align-items:flex-start;transition:border-color 0.2s;}
-.mini-card:hover{border-color:var(--red);}
-.mini-card img{width:72px;height:56px;object-fit:cover;border-radius:5px;flex-shrink:0;}
-.mini-img-fallback{width:72px;height:56px;background:var(--surface2);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
-.mini-body .topic-tag{margin-bottom:5px;}
-.mini-body h4{font-size:0.82rem;font-weight:600;line-height:1.35;color:var(--white);}
-.mini-body h4 a{text-decoration:none;color:inherit;}
-.mini-body h4 a:hover{color:var(--red);}
-.mini-body .meta-row{margin-top:6px;font-size:0.68rem;}
-.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px;}
-.news-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color 0.2s,transform 0.2s;}
-.news-card:hover{border-color:var(--red);transform:translateY(-2px);}
-.news-card img{width:100%;height:170px;object-fit:cover;display:block;}
-.news-img-fallback{width:100%;height:170px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:2rem;}
-.news-card-body{padding:14px;}
-.news-card-body .topic-tag{margin-bottom:7px;}
-.news-card-body h3{font-size:0.88rem;font-weight:600;line-height:1.45;margin-bottom:8px;color:var(--white);}
-.news-card-body h3 a{text-decoration:none;color:inherit;}
+
+:root{
+  --bg:#F5F4F0;
+  --white:#FFFFFF;
+  --card:#FFFFFF;
+  --border:#E2E0DA;
+  --border-light:#EDECEA;
+  --red:#C9243F;
+  --red-hover:#A81D33;
+  --red-light:#FDF0F2;
+  --text:#111111;
+  --text-secondary:#444444;
+  --muted:#777777;
+  --tag-bg:#F0EEE8;
+  --radius:6px;
+  --font-body:'Inter',sans-serif;
+  --font-display:'Playfair Display',serif;
+}
+
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+a:hover{color:var(--red);}
+img{display:block;max-width:100%;}
+
+/* ══ TOPBAR ══ */
+.topbar{background:var(--red);color:#fff;padding:6px 0;text-align:center;font-size:0.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+
+/* ══ HEADER ══ */
+header{background:var(--white);border-bottom:3px solid var(--text);position:sticky;top:0;z-index:300;box-shadow:0 1px 0 var(--border);}
+.header-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.brand-name{font-family:var(--font-display);font-size:1.9rem;font-weight:800;color:var(--text);letter-spacing:-1px;line-height:1;}
+.brand-name span{color:var(--red);}
+.brand-tagline{font-size:0.68rem;color:var(--muted);font-weight:500;letter-spacing:0.5px;margin-top:3px;text-transform:uppercase;}
+.header-right{display:flex;align-items:center;gap:16px;}
+.live-badge{display:flex;align-items:center;gap:6px;background:var(--red);color:#fff;font-size:0.7rem;font-weight:700;padding:5px 12px;border-radius:3px;letter-spacing:0.5px;}
+.live-dot{width:7px;height:7px;background:#fff;border-radius:50%;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.8);}}
+.story-count{font-size:0.75rem;color:var(--muted);font-weight:500;}
+
+/* ══ TICKER ══ */
+.ticker{background:var(--text);color:#fff;overflow:hidden;height:36px;display:flex;align-items:center;}
+.ticker-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:16px;width:100%;}
+.ticker-label{background:var(--red);color:#fff;font-size:0.62rem;font-weight:800;padding:3px 9px;border-radius:2px;white-space:nowrap;letter-spacing:1.5px;text-transform:uppercase;flex-shrink:0;}
+.ticker-text{font-size:0.8rem;color:#e8e8e8;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+/* ══ TOPIC NAV ══ */
+.topic-nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:64px;z-index:200;}
+.topic-nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.topic-nav-inner::-webkit-scrollbar{display:none;}
+.topic-btn{background:none;border:none;border-bottom:3px solid transparent;color:var(--muted);padding:13px 18px;cursor:pointer;font-size:0.8rem;font-weight:600;font-family:var(--font-body);white-space:nowrap;transition:all 0.15s;letter-spacing:0.3px;}
+.topic-btn:hover{color:var(--text);}
+.topic-btn.active{color:var(--red);border-bottom-color:var(--red);}
+
+/* ══ CONTAINER ══ */
+.container{max-width:1200px;margin:0 auto;padding:32px 24px 80px;}
+
+/* ══ SECTION HEADER ══ */
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--text);}
+.sec-head h2{font-family:var(--font-display);font-size:1.1rem;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:0.5px;}
+.sec-head-line{flex:1;height:0;}
+
+/* ══ HERO LAYOUT ══ */
+.hero-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:40px;}
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr;}}
+
+.hero-main{background:var(--card);padding:0;}
+.hero-main-img{width:100%;height:340px;object-fit:cover;}
+.hero-main-img-fallback{width:100%;height:340px;background:linear-gradient(135deg,#f0ede6 0%,#e8e4dc 100%);display:flex;align-items:center;justify-content:center;font-size:3.5rem;}
+.hero-main-body{padding:22px 24px 24px;}
+.topic-pill{display:inline-block;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--red);background:var(--red-light);padding:3px 9px;border-radius:3px;margin-bottom:12px;}
+.hero-main-body h2{font-family:var(--font-display);font-size:1.55rem;font-weight:800;line-height:1.3;margin-bottom:10px;color:var(--text);}
+.hero-main-body h2 a:hover{color:var(--red);}
+.hero-main-body p{font-size:0.88rem;color:var(--text-secondary);line-height:1.65;margin-bottom:14px;}
+.byline{display:flex;align-items:center;gap:8px;font-size:0.72rem;color:var(--muted);}
+.byline-source{font-weight:700;color:var(--text-secondary);}
+.byline-sep{color:var(--border);}
+
+.hero-side{background:var(--card);display:flex;flex-direction:column;}
+.hero-side-item{padding:18px 20px;border-bottom:1px solid var(--border-light);display:flex;flex-direction:column;gap:8px;flex:1;transition:background 0.15s;}
+.hero-side-item:hover{background:#fafaf8;}
+.hero-side-item:last-child{border-bottom:none;}
+.hero-side-item-img-wrap{display:flex;gap:12px;align-items:flex-start;}
+.hero-side-item img{width:80px;height:62px;object-fit:cover;border-radius:4px;flex-shrink:0;}
+.hero-side-item-img-fallback{width:80px;height:62px;background:var(--tag-bg);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;}
+.hero-side-item h4{font-size:0.85rem;font-weight:700;line-height:1.4;color:var(--text);}
+.hero-side-item h4 a:hover{color:var(--red);}
+.side-byline{font-size:0.68rem;color:var(--muted);}
+.side-byline span{font-weight:600;color:var(--text-secondary);}
+
+/* ══ NEWS GRID ══ */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:900px){.news-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:580px){.news-grid{grid-template-columns:1fr;}}
+
+.news-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow 0.2s,transform 0.2s;}
+.news-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.1);transform:translateY(-2px);}
+.news-card-img{width:100%;height:175px;object-fit:cover;}
+.news-card-img-fallback{width:100%;height:175px;background:linear-gradient(135deg,#f2efe8 0%,#e9e5dc 100%);display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
+.news-card-body{padding:16px;flex:1;display:flex;flex-direction:column;gap:8px;}
+.news-card-body .topic-pill{margin-bottom:0;}
+.news-card-body h3{font-size:0.92rem;font-weight:700;line-height:1.45;color:var(--text);flex:1;}
 .news-card-body h3 a:hover{color:var(--red);}
-.news-card-body p{font-size:0.76rem;color:var(--muted);line-height:1.5;margin-bottom:10px;}
-.news-card-body .meta-row{font-size:0.68rem;}
-.no-results{text-align:center;padding:60px 20px;color:var(--muted);}
-.no-results p{font-size:1rem;margin-top:10px;}
-footer{background:var(--surface);border-top:1px solid var(--border);padding:24px;text-align:center;}
-footer p{font-size:0.78rem;color:var(--muted);}
-footer strong{color:var(--white);}
+.news-card-body p{font-size:0.76rem;color:var(--muted);line-height:1.55;}
+.card-byline{display:flex;align-items:center;gap:6px;font-size:0.68rem;color:var(--muted);padding-top:8px;border-top:1px solid var(--border-light);margin-top:auto;}
+.card-byline span:first-child{font-weight:700;color:var(--text-secondary);}
+.dot-sep{color:var(--border);}
+
+/* ══ EMPTY STATE ══ */
+.empty-state{grid-column:1/-1;text-align:center;padding:70px 20px;color:var(--muted);}
+.empty-state .icon{font-size:3rem;margin-bottom:12px;}
+.empty-state p{font-size:0.95rem;font-weight:500;}
+
+/* ══ FOOTER ══ */
+footer{background:var(--text);color:rgba(255,255,255,0.6);padding:28px 24px;text-align:center;}
+.footer-inner{max-width:1200px;margin:0 auto;}
+.footer-brand{font-family:var(--font-display);font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:6px;}
+.footer-brand span{color:var(--red);}
+footer p{font-size:0.76rem;line-height:1.8;}
+
+/* ══ HIDDEN ══ */
 .hidden{display:none!important;}
 </style>
 </head>
 <body>
+
+<div class="topbar">Bangladesh's Most Trusted News Aggregator — Updated Every 10 Minutes</div>
+
+<!-- HEADER -->
 <header>
   <div class="header-inner">
-    <div class="brand">
-      <h1>🇧🇩 The<span>BD</span>Wire</h1>
-      <div class="brand-sub">Bangladesh's Real-Time News Aggregator</div>
+    <div>
+      <div class="brand-name">The<span>BD</span>Wire</div>
+      <div class="brand-tagline">🇧🇩 Bangladesh Real-Time News</div>
     </div>
     <div class="header-right">
-      <span class="live-pill">● LIVE</span>
-      <span class="count-pill">{{ total }} Stories</span>
+      <span class="story-count">{{ total }} stories</span>
+      <span class="live-badge"><span class="live-dot"></span>LIVE</span>
     </div>
   </div>
 </header>
+
+<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
-    <span class="ticker-tag">BREAKING</span>
-    <span class="ticker-scroll" id="ticker-text">Loading headlines...</span>
+    <span class="ticker-label">Breaking</span>
+    <span class="ticker-text" id="ticker-text">Loading latest headlines...</span>
   </div>
 </div>
-<div class="tabs-wrap">
-  <div class="tabs-inner">
+
+<!-- TOPIC NAV -->
+<nav class="topic-nav">
+  <div class="topic-nav-inner">
     {% for topic in topics %}
-    <button class="tab-btn {% if loop.first %}active{% endif %}" onclick="filterTopic('{{ topic }}', this)">
-      {% if topic == 'All' %}🗞️ All
-      {% elif topic == 'Politics' %}🏛️ Politics
+    <button class="topic-btn {% if loop.first %}active{% endif %}" onclick="filterTopic('{{ topic }}',this)">
+      {% if topic == 'All' %}All News
+      {% elif topic == 'Politics' %}🏛 Politics
       {% elif topic == 'Economy' %}📈 Economy
       {% elif topic == 'Sports' %}⚽ Sports
       {% elif topic == 'Crime' %}🚨 Crime
@@ -126,85 +174,119 @@ footer strong{color:var(--white);}
     </button>
     {% endfor %}
   </div>
-</div>
+</nav>
+
+<!-- MAIN -->
 <div class="container">
-  <div class="sec-label"><h2>Top Stories</h2></div>
-  <div class="hero-wrap">
+
+  <!-- TOP STORIES -->
+  <div class="sec-head"><h2>Top Stories</h2></div>
+  <div class="hero-grid" id="hero-section">
     {% if news|length > 0 %}
-    {% set hero = news[0] %}
-    <div class="hero-card" data-topic="{{ hero.topic }}">
-      {% if hero.image %}<img src="{{ hero.image }}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="hero-img-fallback" style="display:none">📰</div>
-      {% else %}<div class="hero-img-fallback">📰</div>{% endif %}
-      <div class="hero-body">
-        <span class="topic-tag">{{ hero.topic }}</span>
-        <h2><a href="{{ hero.link }}" target="_blank">{{ hero.title }}</a></h2>
-        <p>{{ hero.summary }}</p>
-        <div class="meta-row"><span class="source-dot"></span><span class="source-name">{{ hero.source }}</span><span>·</span><span>{{ hero.time }}</span></div>
+    {% set h = news[0] %}
+    <div class="hero-main" data-topic="{{ h.topic }}">
+      {% if h.image %}
+      <img class="hero-main-img" src="{{ h.image }}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="hero-main-img-fallback" style="display:none">📰</div>
+      {% else %}
+      <div class="hero-main-img-fallback">📰</div>
+      {% endif %}
+      <div class="hero-main-body">
+        <span class="topic-pill">{{ h.topic }}</span>
+        <h2><a href="{{ h.link }}" target="_blank">{{ h.title }}</a></h2>
+        <p>{{ h.summary }}</p>
+        <div class="byline">
+          <span class="byline-source">{{ h.source }}</span>
+          <span class="byline-sep">|</span>
+          <span>{{ h.time }}</span>
+        </div>
       </div>
     </div>
-    <div class="side-list">
+    <div class="hero-side">
       {% for item in news[1:5] %}
-      <div class="mini-card" data-topic="{{ item.topic }}">
-        {% if item.image %}<img src="{{ item.image }}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-        <div class="mini-img-fallback" style="display:none">📰</div>
-        {% else %}<div class="mini-img-fallback">📰</div>{% endif %}
-        <div class="mini-body">
-          <span class="topic-tag">{{ item.topic }}</span>
-          <h4><a href="{{ item.link }}" target="_blank">{{ item.title }}</a></h4>
-          <div class="meta-row"><span class="source-dot"></span><span class="source-name">{{ item.source }}</span></div>
+      <div class="hero-side-item" data-topic="{{ item.topic }}">
+        <div class="hero-side-item-img-wrap">
+          {% if item.image %}
+          <img src="{{ item.image }}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div class="hero-side-item-img-fallback" style="display:none">📰</div>
+          {% else %}
+          <div class="hero-side-item-img-fallback">📰</div>
+          {% endif %}
+          <div>
+            <span class="topic-pill">{{ item.topic }}</span>
+            <h4><a href="{{ item.link }}" target="_blank">{{ item.title }}</a></h4>
+          </div>
         </div>
+        <div class="side-byline"><span>{{ item.source }}</span> · {{ item.time }}</div>
       </div>
       {% endfor %}
     </div>
     {% endif %}
   </div>
-  <div class="sec-label"><h2>Latest News</h2></div>
+
+  <!-- LATEST NEWS GRID -->
+  <div class="sec-head"><h2>Latest News</h2></div>
   <div class="news-grid" id="news-grid">
     {% for item in news[5:] %}
     <div class="news-card" data-topic="{{ item.topic }}">
-      {% if item.image %}<img src="{{ item.image }}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="news-img-fallback" style="display:none">📰</div>
-      {% else %}<div class="news-img-fallback">📰</div>{% endif %}
+      {% if item.image %}
+      <img class="news-card-img" src="{{ item.image }}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="news-card-img-fallback" style="display:none">📰</div>
+      {% else %}
+      <div class="news-card-img-fallback">📰</div>
+      {% endif %}
       <div class="news-card-body">
-        <span class="topic-tag">{{ item.topic }}</span>
+        <span class="topic-pill">{{ item.topic }}</span>
         <h3><a href="{{ item.link }}" target="_blank">{{ item.title }}</a></h3>
         <p>{{ item.summary }}</p>
-        <div class="meta-row"><span class="source-dot"></span><span class="source-name">{{ item.source }}</span><span>·</span><span>{{ item.time }}</span></div>
+        <div class="card-byline">
+          <span>{{ item.source }}</span>
+          <span class="dot-sep">·</span>
+          <span>{{ item.time }}</span>
+        </div>
       </div>
     </div>
     {% endfor %}
+    <div id="no-results" class="empty-state hidden">
+      <div class="icon">🔍</div>
+      <p>No stories in this category right now — check back soon!</p>
+    </div>
   </div>
-  <div id="no-results" class="no-results hidden">
-    <div style="font-size:2.5rem">🔍</div>
-    <p>No stories found in this category right now. Check back soon!</p>
-  </div>
+
 </div>
+
+<!-- FOOTER -->
 <footer>
-  <p><strong>TheBDWire</strong> · Aggregated from 10 trusted Bangladesh sources · Refreshed every 10 minutes</p>
-  <p style="margin-top:6px;">© 2025 TheBDWire — All rights reserved</p>
+  <div class="footer-inner">
+    <div class="footer-brand">The<span>BD</span>Wire</div>
+    <p>Aggregated from 10 trusted Bangladesh news sources · Refreshed every 10 minutes</p>
+    <p>© 2025 TheBDWire · All rights reserved</p>
+  </div>
 </footer>
+
 <script>
-const titles=[{% for item in news[:12] %}"{{ item.title|replace('"','\\"') }}",{% endfor %}];
+const titles=[{% for item in news[:15] %}"{{ item.title|replace('"','\\"')|replace("'","\\'")|striptags }}",{% endfor %}];
 let ti=0;
 function tick(){if(!titles.length)return;document.getElementById("ticker-text").textContent=titles[ti%titles.length];ti++;}
-tick();setInterval(tick,4000);
-let currentTopic="All";
-function filterTopic(topic,btn){
-  currentTopic=topic;
-  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+tick();setInterval(tick,4500);
+
+let activeTopic="All";
+function filterTopic(t,btn){
+  activeTopic=t;
+  document.querySelectorAll(".topic-btn").forEach(b=>b.classList.remove("active"));
   btn.classList.add("active");
   applyFilter();
 }
 function applyFilter(){
-  const all=document.querySelectorAll(".news-card,.hero-card,.mini-card");
+  const cards=document.querySelectorAll(".news-card,.hero-main,.hero-side-item");
   let v=0;
-  all.forEach(el=>{
-    const m=currentTopic==="All"||el.dataset.topic===currentTopic;
-    el.classList.toggle("hidden",!m);
-    if(m)v++;
+  cards.forEach(el=>{
+    const show=activeTopic==="All"||el.dataset.topic===activeTopic;
+    el.classList.toggle("hidden",!show);
+    if(show)v++;
   });
-  document.getElementById("no-results").classList.toggle("hidden",v>0);
+  const nr=document.getElementById("no-results");
+  if(nr)nr.classList.toggle("hidden",v>0);
 }
 </script>
 </body>

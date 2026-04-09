@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheBDWire</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
+        header { background: #006847; color: white; padding: 16px 24px; }
+        header h1 { font-size: 1.8rem; }
+        header p { font-size: 0.9rem; opacity: 0.85; }
+        .container { max-width: 960px; margin: 24px auto; padding: 0 16px; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+        .card { background: white; border-radius: 8px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        .card h3 { font-size: 0.95rem; margin-bottom: 8px; }
+        .card h3 a { text-decoration: none; color: #006847; }
+        .card h3 a:hover { text-decoration: underline; }
+        .card .source { font-size: 0.75rem; color: #888; margin-bottom: 4px; }
+        .card .time { font-size: 0.72rem; color: #aaa; }
+        .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .filter-bar button { padding: 6px 14px; border: none; border-radius: 20px; background: #ddd; cursor: pointer; font-size: 0.82rem; }
+        .filter-bar button.active { background: #006847; color: white; }
+        footer { text-align: center; padding: 24px; font-size: 0.8rem; color: #aaa; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🇧🇩 TheBDWire</h1>
+        <p>Real-time news from Bangladesh's top sources</p>
+    </header>
+    <div class="container">
+        <div class="filter-bar">
+            <button class="active" onclick="filterNews('all', this)">All</button>
+            {% for source in sources %}
+            <button onclick="filterNews('{{ source }}', this)">{{ source }}</button>
+            {% endfor %}
+        </div>
+        <div class="news-grid" id="news-grid">
+            {% for item in news %}
+            <div class="card" data-source="{{ item.source }}">
+                <div class="source">{{ item.source }}</div>
+                <h3><a href="{{ item.link }}" target="_blank">{{ item.title }}</a></h3>
+                <div class="time">{{ item.time }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <footer>© 2025 TheBDWire — Aggregated from public RSS feeds</footer>
+    <script>
+        function filterNews(source, btn) {
+            document.querySelectorAll('.filter-bar button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.display = (source === 'all' || card.dataset.source === source) ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

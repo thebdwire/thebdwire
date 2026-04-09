@@ -1,293 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TheBDWire — Bangladesh News</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --bg:#F5F4F0;
-  --white:#FFFFFF;
-  --card:#FFFFFF;
-  --border:#E2E0DA;
-  --border-light:#EDECEA;
-  --red:#C9243F;
-  --red-hover:#A81D33;
-  --red-light:#FDF0F2;
+  --bg:#f7f6f3;
+  --white:#ffffff;
   --text:#111111;
-  --text-secondary:#444444;
-  --muted:#777777;
-  --tag-bg:#F0EEE8;
-  --radius:6px;
-  --font-body:'Inter',sans-serif;
-  --font-display:'Playfair Display',serif;
+  --text-muted:#555555;
+  --text-light:#888888;
+  --border:#e2e2de;
+  --red:#c0392b;
+  --red-soft:#fdf0ee;
+  --red-mid:#e8c8c5;
+  --green:#1a6b3a;
+  --green-soft:#eaf4ee;
+  --navy:#1a2744;
+  --navy-soft:#eaecf4;
+  --amber:#b45309;
+  --amber-soft:#fef3e0;
+  --shadow-sm:0 1px 4px rgba(0,0,0,0.07);
+  --shadow-md:0 4px 20px rgba(0,0,0,0.10);
+  --radius:3px;
+  --font-head:'Playfair Display',serif;
+  --font-body:'Inter','Roboto',sans-serif;
+  --font-bengali:'Noto Serif Bengali','Roboto','Inter',sans-serif;
 }
-
-body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
-a{color:inherit;text-decoration:none;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;transition:color .18s;}
 a:hover{color:var(--red);}
-img{display:block;max-width:100%;}
+img{max-width:100%;height:auto;display:block;}
+.container{max-width:1140px;margin:0 auto;padding:0 28px;}
+button{font-family:var(--font-body);}
 
-/* ══ TOPBAR ══ */
-.topbar{background:var(--red);color:#fff;padding:6px 0;text-align:center;font-size:0.72rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+/* TOPBAR */
+.topbar{background:var(--text);color:rgba(255,255,255,.72);font-size:.78rem;padding:7px 0;letter-spacing:.02em;}
+.topbar-inner{display:flex;justify-content:space-between;align-items:center;}
+.topbar-date{opacity:.7;}
+.topbar-tag{display:flex;gap:18px;}
+.topbar-tag a{color:rgba(255,255,255,.7);font-size:.78rem;}
+.topbar-tag a:hover{color:#fff;}
 
-/* ══ HEADER ══ */
-header{background:var(--white);border-bottom:3px solid var(--text);position:sticky;top:0;z-index:300;box-shadow:0 1px 0 var(--border);}
-.header-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;}
-.brand-name{font-family:var(--font-display);font-size:1.9rem;font-weight:800;color:var(--text);letter-spacing:-1px;line-height:1;}
-.brand-name span{color:var(--red);}
-.brand-tagline{font-size:0.68rem;color:var(--muted);font-weight:500;letter-spacing:0.5px;margin-top:3px;text-transform:uppercase;}
-.header-right{display:flex;align-items:center;gap:16px;}
-.live-badge{display:flex;align-items:center;gap:6px;background:var(--red);color:#fff;font-size:0.7rem;font-weight:700;padding:5px 12px;border-radius:3px;letter-spacing:0.5px;}
-.live-dot{width:7px;height:7px;background:#fff;border-radius:50%;animation:pulse 1.5s infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.8);}}
-.story-count{font-size:0.75rem;color:var(--muted);font-weight:500;}
+/* HEADER */
+header{background:var(--white);border-bottom:2px solid var(--text);}
+.header-inner{display:flex;flex-direction:column;align-items:center;padding:28px 0 0;}
+.logo{font-family:var(--font-head);font-size:3rem;font-weight:900;letter-spacing:-.04em;color:var(--text);line-height:1;}
+.logo-accent{color:var(--red);}
+.logo-sub{font-family:var(--font-body);font-size:.78rem;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--text-muted);margin-top:6px;margin-bottom:18px;}
+.header-line{width:100%;border:none;border-top:1px solid var(--border);}
+.header-bottom{display:flex;justify-content:space-between;align-items:center;width:100%;padding:10px 0;}
+.header-meta{display:flex;align-items:center;gap:16px;}
+.live-badge{display:flex;align-items:center;gap:7px;background:var(--red);color:#fff;padding:5px 14px;border-radius:3px;font-size:.78rem;font-weight:600;letter-spacing:.04em;}
+.live-dot{width:7px;height:7px;background:#fff;border-radius:50%;animation:blink 1.6s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.story-count{font-size:.83rem;color:var(--text-muted);font-weight:500;}
 
-/* ══ TICKER ══ */
-.ticker{background:var(--text);color:#fff;overflow:hidden;height:36px;display:flex;align-items:center;}
-.ticker-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:16px;width:100%;}
-.ticker-label{background:var(--red);color:#fff;font-size:0.62rem;font-weight:800;padding:3px 9px;border-radius:2px;white-space:nowrap;letter-spacing:1.5px;text-transform:uppercase;flex-shrink:0;}
-.ticker-text{font-size:0.8rem;color:#e8e8e8;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+/* TABS */
+nav.tabs{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.tabs-scroll{display:flex;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;}
+.tabs-scroll::-webkit-scrollbar{display:none;}
+.tab-btn{padding:14px 22px;font-size:.87rem;font-weight:600;color:var(--text-muted);background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;letter-spacing:.01em;transition:all .2s;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--red);border-bottom-color:var(--red);}
 
-/* ══ TOPIC NAV ══ */
-.topic-nav{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:64px;z-index:200;}
-.topic-nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
-.topic-nav-inner::-webkit-scrollbar{display:none;}
-.topic-btn{background:none;border:none;border-bottom:3px solid transparent;color:var(--muted);padding:13px 18px;cursor:pointer;font-size:0.8rem;font-weight:600;font-family:var(--font-body);white-space:nowrap;transition:all 0.15s;letter-spacing:0.3px;}
-.topic-btn:hover{color:var(--text);}
-.topic-btn.active{color:var(--red);border-bottom-color:var(--red);}
+/* CATEGORY BADGE COLOURS */
+.cat-badge{display:inline-block;padding:3px 10px;border-radius:3px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
+.cat-National{background:var(--navy-soft);color:var(--navy);}
+.cat-Politics{background:var(--red-soft);color:var(--red);}
+.cat-World{background:var(--green-soft);color:var(--green);}
+.cat-Economy{background:var(--amber-soft);color:var(--amber);}
+.cat-TradeCommerce{background:#f0edfb;color:#5c3d9e;}
+.cat-Sports{background:#e6f5fb;color:#0b6e98;}
 
-/* ══ CONTAINER ══ */
-.container{max-width:1200px;margin:0 auto;padding:32px 24px 80px;}
+/* SOURCE TAG */
+.src-tag{display:inline-flex;align-items:center;gap:5px;border:1.5px solid var(--border);background:var(--white);padding:3px 10px;border-radius:3px;font-size:.77rem;font-weight:700;color:var(--text-muted);}
+.src-dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex-shrink:0;}
 
-/* ══ SECTION HEADER ══ */
-.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--text);}
-.sec-head h2{font-family:var(--font-display);font-size:1.1rem;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:0.5px;}
-.sec-head-line{flex:1;height:0;}
+/* SECTION DIVIDER */
+.section-divider{display:flex;align-items:center;gap:14px;margin:38px 0 24px;}
+.section-divider-line{flex:1;height:1px;background:var(--border);}
+.section-divider-label{font-family:var(--font-head);font-size:1rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);}
 
-/* ══ HERO LAYOUT ══ */
-.hero-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:40px;}
-@media(max-width:800px){.hero-grid{grid-template-columns:1fr;}}
+/* HERO GRID */
+.hero-grid{display:grid;grid-template-columns:2fr 1fr;gap:0;border:1px solid var(--border);background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+.hero-main{padding:34px 36px;border-right:1px solid var(--border);}
+.hero-image-wrap{overflow:hidden;border-radius:2px;margin-bottom:24px;}
+.hero-image{width:100%;height:260px;object-fit:cover;transition:transform .4s;}
+.hero-image:hover{transform:scale(1.02);}
+.hero-top-meta{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.hero-title{font-family:var(--font-head);font-size:2.1rem;font-weight:800;line-height:1.22;color:var(--text);margin-bottom:14px;}
+.hero-title a:hover{color:var(--red);}
+.hero-excerpt{font-size:.97rem;color:var(--text-muted);line-height:1.7;margin-bottom:22px;}
+.hero-footer{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.hero-time{font-size:.8rem;color:var(--text-light);}
 
-.hero-main{background:var(--card);padding:0;}
-.hero-main-img{width:100%;height:340px;object-fit:cover;}
-.hero-main-img-fallback{width:100%;height:340px;background:linear-gradient(135deg,#f0ede6 0%,#e8e4dc 100%);display:flex;align-items:center;justify-content:center;font-size:3.5rem;}
-.hero-main-body{padding:22px 24px 24px;}
-.topic-pill{display:inline-block;font-size:0.62rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--red);background:var(--red-light);padding:3px 9px;border-radius:3px;margin-bottom:12px;}
-.hero-main-body h2{font-family:var(--font-display);font-size:1.55rem;font-weight:800;line-height:1.3;margin-bottom:10px;color:var(--text);}
-.hero-main-body h2 a:hover{color:var(--red);}
-.hero-main-body p{font-size:0.88rem;color:var(--text-secondary);line-height:1.65;margin-bottom:14px;}
-.byline{display:flex;align-items:center;gap:8px;font-size:0.72rem;color:var(--muted);}
-.byline-source{font-weight:700;color:var(--text-secondary);}
-.byline-sep{color:var(--border);}
+/* HERO SIDEBAR */
+.hero-sidebar{display:flex;flex-direction:column;}
+.sidebar-item{padding:22px 24px;border-bottom:1px solid var(--border);flex:1;}
+.sidebar-item:last-child{border-bottom:none;}
+.sidebar-item-img{width:100%;height:120px;object-fit:cover;border-radius:2px;margin-bottom:14px;}
+.sidebar-top{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.sidebar-title{font-family:var(--font-head);font-size:1.05rem;font-weight:700;line-height:1.3;margin-bottom:8px;}
+.sidebar-title a:hover{color:var(--red);}
+.sidebar-excerpt{font-size:.85rem;color:var(--text-muted);line-height:1.6;margin-bottom:12px;}
+.sidebar-footer{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.sidebar-time{font-size:.77rem;color:var(--text-light);}
 
-.hero-side{background:var(--card);display:flex;flex-direction:column;}
-.hero-side-item{padding:18px 20px;border-bottom:1px solid var(--border-light);display:flex;flex-direction:column;gap:8px;flex:1;transition:background 0.15s;}
-.hero-side-item:hover{background:#fafaf8;}
-.hero-side-item:last-child{border-bottom:none;}
-.hero-side-item-img-wrap{display:flex;gap:12px;align-items:flex-start;}
-.hero-side-item img{width:80px;height:62px;object-fit:cover;border-radius:4px;flex-shrink:0;}
-.hero-side-item-img-fallback{width:80px;height:62px;background:var(--tag-bg);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;}
-.hero-side-item h4{font-size:0.85rem;font-weight:700;line-height:1.4;color:var(--text);}
-.hero-side-item h4 a:hover{color:var(--red);}
-.side-byline{font-size:0.68rem;color:var(--muted);}
-.side-byline span{font-weight:600;color:var(--text-secondary);}
+/* FEATURED ROW */
+.featured-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:760px){.featured-row{grid-template-columns:1fr;}}
+.feat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-sm);transition:box-shadow .2s,transform .2s;}
+.feat-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.feat-img{width:100%;height:190px;object-fit:cover;}
+.feat-body{padding:22px;}
+.feat-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.feat-title{font-family:var(--font-head);font-size:1.22rem;font-weight:700;line-height:1.3;margin-bottom:10px;}
+.feat-title a:hover{color:var(--red);}
+.feat-excerpt{font-size:.88rem;color:var(--text-muted);line-height:1.65;margin-bottom:16px;}
+.feat-footer{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.feat-time{font-size:.78rem;color:var(--text-light);}
 
-/* ══ NEWS GRID ══ */
-.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-@media(max-width:900px){.news-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:580px){.news-grid{grid-template-columns:1fr;}}
+/* NEWS GRID */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media(max-width:1000px){.news-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.news-grid{grid-template-columns:1fr;}}
+.news-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-sm);transition:box-shadow .2s,transform .2s;}
+.news-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.news-img-wrap{overflow:hidden;}
+.news-img{width:100%;height:180px;object-fit:cover;transition:transform .35s;}
+.news-card:hover .news-img{transform:scale(1.03);}
+.news-body{padding:20px;flex:1;display:flex;flex-direction:column;}
+.news-top{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.news-title{font-family:var(--font-head);font-size:1.08rem;font-weight:700;line-height:1.32;margin-bottom:10px;flex:1;}
+.news-title a:hover{color:var(--red);}
+.news-excerpt{font-size:.86rem;color:var(--text-muted);line-height:1.62;margin-bottom:16px;}
+.news-footer{margin-top:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.news-time{font-size:.77rem;color:var(--text-light);}
 
-.news-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow 0.2s,transform 0.2s;}
-.news-card:hover{box-shadow:0 4px 20px rgba(0,0,0,0.1);transform:translateY(-2px);}
-.news-card-img{width:100%;height:175px;object-fit:cover;}
-.news-card-img-fallback{width:100%;height:175px;background:linear-gradient(135deg,#f2efe8 0%,#e9e5dc 100%);display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
-.news-card-body{padding:16px;flex:1;display:flex;flex-direction:column;gap:8px;}
-.news-card-body .topic-pill{margin-bottom:0;}
-.news-card-body h3{font-size:0.92rem;font-weight:700;line-height:1.45;color:var(--text);flex:1;}
-.news-card-body h3 a:hover{color:var(--red);}
-.news-card-body p{font-size:0.76rem;color:var(--muted);line-height:1.55;}
-.card-byline{display:flex;align-items:center;gap:6px;font-size:0.68rem;color:var(--muted);padding-top:8px;border-top:1px solid var(--border-light);margin-top:auto;}
-.card-byline span:first-child{font-weight:700;color:var(--text-secondary);}
-.dot-sep{color:var(--border);}
+/* READ MORE */
+.read-more{display:inline-flex;align-items:center;gap:5px;font-size:.82rem;font-weight:600;color:var(--red);}
+.read-more::after{content:"→";}
 
-/* ══ EMPTY STATE ══ */
-.empty-state{grid-column:1/-1;text-align:center;padding:70px 20px;color:var(--muted);}
-.empty-state .icon{font-size:3rem;margin-bottom:12px;}
-.empty-state p{font-size:0.95rem;font-weight:500;}
+/* BENGALI FONT */
+[lang="bn"],.bn{font-family:var(--font-bengali)!important;}
 
-/* ══ FOOTER ══ */
-footer{background:var(--text);color:rgba(255,255,255,0.6);padding:28px 24px;text-align:center;}
-.footer-inner{max-width:1200px;margin:0 auto;}
-.footer-brand{font-family:var(--font-display);font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:6px;}
-.footer-brand span{color:var(--red);}
-footer p{font-size:0.76rem;line-height:1.8;}
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:80px 20px;}
+.empty-icon{font-size:3.5rem;margin-bottom:16px;}
+.empty-state h2{font-family:var(--font-head);font-size:1.6rem;margin-bottom:8px;}
+.empty-state p{color:var(--text-muted);}
 
-/* ══ HIDDEN ══ */
-.hidden{display:none!important;}
+/* FOOTER */
+footer{background:var(--text);color:rgba(255,255,255,.75);margin-top:80px;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;padding:48px 0 36px;border-bottom:1px solid rgba(255,255,255,.1);}
+@media(max-width:700px){.footer-top{flex-direction:column;gap:32px;}}
+.footer-logo{font-family:var(--font-head);font-size:2rem;font-weight:900;color:#fff;letter-spacing:-.03em;}
+.footer-logo-accent{color:var(--red);}
+.footer-tagline{font-size:.85rem;color:rgba(255,255,255,.5);margin-top:6px;}
+.footer-links{display:flex;flex-direction:column;gap:8px;}
+.footer-links a{color:rgba(255,255,255,.6);font-size:.85rem;}
+.footer-links a:hover{color:#fff;}
+.footer-bottom{padding:20px 0;text-align:center;font-size:.8rem;color:rgba(255,255,255,.4);}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.news-card,.feat-card,.sidebar-item{animation:fadeUp .4s ease both;}
 </style>
 </head>
 <body>
 
-<div class="topbar">Bangladesh's Most Trusted News Aggregator — Updated Every 10 Minutes</div>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar-inner">
+      <span class="topbar-date" id="topDate"></span>
+      <div class="topbar-tag">
+        <a href="#">About</a>
+        <a href="#">RSS</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- HEADER -->
 <header>
-  <div class="header-inner">
-    <div>
-      <div class="brand-name">The<span>BD</span>Wire</div>
-      <div class="brand-tagline">🇧🇩 Bangladesh Real-Time News</div>
-    </div>
-    <div class="header-right">
-      <span class="story-count">{{ total }} stories</span>
-      <span class="live-badge"><span class="live-dot"></span>LIVE</span>
+  <div class="container">
+    <div class="header-inner">
+      <a href="/" class="logo">The<span class="logo-accent">BD</span>Wire</a>
+      <p class="logo-sub">Bangladesh's Independent News Digest</p>
+      <hr class="header-line">
+      <div class="header-bottom">
+        <span class="story-count">{{ total }} stories aggregated</span>
+        <div class="header-meta">
+          <div class="live-badge"><div class="live-dot"></div>LIVE FEED</div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-inner">
-    <span class="ticker-label">Breaking</span>
-    <span class="ticker-text" id="ticker-text">Loading latest headlines...</span>
-  </div>
-</div>
-
-<!-- TOPIC NAV -->
-<nav class="topic-nav">
-  <div class="topic-nav-inner">
-    {% for topic in topics %}
-    <button class="topic-btn {% if loop.first %}active{% endif %}" onclick="filterTopic('{{ topic }}',this)">
-      {% if topic == 'All' %}All News
-      {% elif topic == 'Politics' %}🏛 Politics
-      {% elif topic == 'Economy' %}📈 Economy
-      {% elif topic == 'Sports' %}⚽ Sports
-      {% elif topic == 'Crime' %}🚨 Crime
-      {% elif topic == 'Business' %}💼 Business
-      {% elif topic == 'Health' %}🏥 Health
-      {% elif topic == 'Education' %}🎓 Education
-      {% elif topic == 'Tech' %}💻 Tech
-      {% else %}📰 {{ topic }}{% endif %}
-    </button>
-    {% endfor %}
+<!-- CATEGORY NAV -->
+<nav class="tabs" role="navigation" aria-label="News categories">
+  <div class="container">
+    <div class="tabs-scroll">
+      {% for cat in categories %}
+      <button class="tab-btn {% if loop.first %}active{% endif %}"
+              data-cat="{{ cat }}"
+              onclick="filterCat('{{ cat }}', this)"
+              aria-pressed="{{ 'true' if loop.first else 'false' }}">
+        {{ cat }}
+      </button>
+      {% endfor %}
+    </div>
   </div>
 </nav>
 
 <!-- MAIN -->
-<div class="container">
+<main class="container" style="padding-top:36px;padding-bottom:60px;">
+{% if news %}
 
-  <!-- TOP STORIES -->
-  <div class="sec-head"><h2>Top Stories</h2></div>
-  <div class="hero-grid" id="hero-section">
-    {% if news|length > 0 %}
-    {% set h = news[0] %}
-    <div class="hero-main" data-topic="{{ h.topic }}">
-      {% if h.image %}
-      <img class="hero-main-img" src="{{ h.image }}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="hero-main-img-fallback" style="display:none">📰</div>
-      {% else %}
-      <div class="hero-main-img-fallback">📰</div>
-      {% endif %}
-      <div class="hero-main-body">
-        <span class="topic-pill">{{ h.topic }}</span>
-        <h2><a href="{{ h.link }}" target="_blank">{{ h.title }}</a></h2>
-        <p>{{ h.summary }}</p>
-        <div class="byline">
-          <span class="byline-source">{{ h.source }}</span>
-          <span class="byline-sep">|</span>
-          <span>{{ h.time }}</span>
-        </div>
-      </div>
+  {% set hero      = news[0] %}
+  {% set sideitems = news[1:4] %}
+  {% set featured  = news[4:8] %}
+  {% set rest      = news[8:] %}
+
+  <!-- TOP STORY -->
+  <div id="heroWrap" data-cat="{{ hero.category }}">
+    <div class="section-divider">
+      <div class="section-divider-line"></div>
+      <div class="section-divider-label">Top Story</div>
+      <div class="section-divider-line"></div>
     </div>
-    <div class="hero-side">
-      {% for item in news[1:5] %}
-      <div class="hero-side-item" data-topic="{{ item.topic }}">
-        <div class="hero-side-item-img-wrap">
+    <div class="hero-grid">
+      <article class="hero-main">
+        {% if hero.image %}
+        <div class="hero-image-wrap">
+          <img class="hero-image" src="{{ hero.image }}" alt="{{ hero.title }}" loading="lazy" onerror="this.parentElement.style.display='none'">
+        </div>
+        {% endif %}
+        <div class="hero-top-meta">
+          <span class="cat-badge cat-{{ hero.category | replace(' & ','') | replace(' ','') }}">{{ hero.category }}</span>
+          <span class="src-tag"><span class="src-dot"></span>{{ hero.source }}</span>
+        </div>
+        <h1 class="hero-title"><a href="{{ hero.link }}" target="_blank" rel="noopener">{{ hero.title }}</a></h1>
+        <p class="hero-excerpt">{{ hero.summary }}</p>
+        <div class="hero-footer">
+          <span class="hero-time">{{ hero.time }}</span>
+          <a href="{{ hero.link }}" target="_blank" rel="noopener" class="read-more">Read Full Story</a>
+        </div>
+      </article>
+      <aside class="hero-sidebar">
+        {% for item in sideitems %}
+        <div class="sidebar-item" data-cat="{{ item.category }}">
           {% if item.image %}
-          <img src="{{ item.image }}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-          <div class="hero-side-item-img-fallback" style="display:none">📰</div>
-          {% else %}
-          <div class="hero-side-item-img-fallback">📰</div>
+          <img class="sidebar-item-img" src="{{ item.image }}" alt="{{ item.title }}" loading="lazy" onerror="this.style.display='none'">
           {% endif %}
-          <div>
-            <span class="topic-pill">{{ item.topic }}</span>
-            <h4><a href="{{ item.link }}" target="_blank">{{ item.title }}</a></h4>
+          <div class="sidebar-top">
+            <span class="cat-badge cat-{{ item.category | replace(' & ','') | replace(' ','') }}">{{ item.category }}</span>
+            <span class="src-tag"><span class="src-dot"></span>{{ item.source }}</span>
+          </div>
+          <h2 class="sidebar-title"><a href="{{ item.link }}" target="_blank" rel="noopener">{{ item.title }}</a></h2>
+          <p class="sidebar-excerpt">{{ item.summary }}</p>
+          <div class="sidebar-footer">
+            <span class="sidebar-time">{{ item.time }}</span>
+            <a href="{{ item.link }}" target="_blank" rel="noopener" class="read-more">Read More</a>
           </div>
         </div>
-        <div class="side-byline"><span>{{ item.source }}</span> · {{ item.time }}</div>
-      </div>
+        {% endfor %}
+      </aside>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  {% if featured %}
+  <div id="featuredWrap">
+    <div class="section-divider">
+      <div class="section-divider-line"></div>
+      <div class="section-divider-label">Featured</div>
+      <div class="section-divider-line"></div>
+    </div>
+    <div class="featured-row">
+      {% for item in featured %}
+      <article class="feat-card" data-cat="{{ item.category }}">
+        {% if item.image %}
+        <img class="feat-img" src="{{ item.image }}" alt="{{ item.title }}" loading="lazy" onerror="this.style.display='none'">
+        {% endif %}
+        <div class="feat-body">
+          <div class="feat-top">
+            <span class="cat-badge cat-{{ item.category | replace(' & ','') | replace(' ','') }}">{{ item.category }}</span>
+            <span class="src-tag"><span class="src-dot"></span>{{ item.source }}</span>
+          </div>
+          <h2 class="feat-title"><a href="{{ item.link }}" target="_blank" rel="noopener">{{ item.title }}</a></h2>
+          <p class="feat-excerpt">{{ item.summary }}</p>
+          <div class="feat-footer">
+            <span class="feat-time">{{ item.time }}</span>
+            <a href="{{ item.link }}" target="_blank" rel="noopener" class="read-more">Read More</a>
+          </div>
+        </div>
+      </article>
       {% endfor %}
     </div>
-    {% endif %}
   </div>
+  {% endif %}
 
   <!-- LATEST NEWS GRID -->
-  <div class="sec-head"><h2>Latest News</h2></div>
-  <div class="news-grid" id="news-grid">
-    {% for item in news[5:] %}
-    <div class="news-card" data-topic="{{ item.topic }}">
+  {% if rest %}
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <div class="section-divider-label">Latest News</div>
+    <div class="section-divider-line"></div>
+  </div>
+  <section class="news-grid" id="newsGrid">
+    {% for item in rest %}
+    <article class="news-card" data-cat="{{ item.category }}">
       {% if item.image %}
-      <img class="news-card-img" src="{{ item.image }}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
-      <div class="news-card-img-fallback" style="display:none">📰</div>
-      {% else %}
-      <div class="news-card-img-fallback">📰</div>
+      <div class="news-img-wrap">
+        <img class="news-img" src="{{ item.image }}" alt="{{ item.title }}" loading="lazy"
+             onerror="this.closest('.news-img-wrap').style.display='none'">
+      </div>
       {% endif %}
-      <div class="news-card-body">
-        <span class="topic-pill">{{ item.topic }}</span>
-        <h3><a href="{{ item.link }}" target="_blank">{{ item.title }}</a></h3>
-        <p>{{ item.summary }}</p>
-        <div class="card-byline">
-          <span>{{ item.source }}</span>
-          <span class="dot-sep">·</span>
-          <span>{{ item.time }}</span>
+      <div class="news-body">
+        <div class="news-top">
+          <span class="cat-badge cat-{{ item.category | replace(' & ','') | replace(' ','') }}">{{ item.category }}</span>
+          <span class="src-tag"><span class="src-dot"></span>{{ item.source }}</span>
+        </div>
+        <h2 class="news-title"><a href="{{ item.link }}" target="_blank" rel="noopener">{{ item.title }}</a></h2>
+        <p class="news-excerpt">{{ item.summary }}</p>
+        <div class="news-footer">
+          <span class="news-time">{{ item.time }}</span>
+          <a href="{{ item.link }}" target="_blank" rel="noopener" class="read-more">Read More</a>
         </div>
       </div>
-    </div>
+    </article>
     {% endfor %}
-    <div id="no-results" class="empty-state hidden">
-      <div class="icon">🔍</div>
-      <p>No stories in this category right now — check back soon!</p>
-    </div>
-  </div>
+  </section>
+  {% endif %}
 
-</div>
+{% else %}
+  <div class="empty-state">
+    <div class="empty-icon">📰</div>
+    <h2>No stories right now</h2>
+    <p>We're fetching the latest Bangladesh news — please refresh in a moment.</p>
+  </div>
+{% endif %}
+</main>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand">The<span>BD</span>Wire</div>
-    <p>Aggregated from 10 trusted Bangladesh news sources · Refreshed every 10 minutes</p>
-    <p>© 2025 TheBDWire · All rights reserved</p>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">The<span class="footer-logo-accent">BD</span>Wire</div>
+        <p class="footer-tagline">Bangladesh's trusted independent news digest</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">National</a>
+        <a href="#">Politics</a>
+        <a href="#">World</a>
+        <a href="#">Economy</a>
+        <a href="#">Trade &amp; Commerce</a>
+        <a href="#">Sports</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2025 TheBDWire &mdash; Aggregated from leading Bangladesh sources. Rights belong to respective publishers.
+    </div>
   </div>
 </footer>
 
 <script>
-const titles=[{% for item in news[:15] %}"{{ item.title|replace('"','\\"')|replace("'","\\'")|striptags }}",{% endfor %}];
-let ti=0;
-function tick(){if(!titles.length)return;document.getElementById("ticker-text").textContent=titles[ti%titles.length];ti++;}
-tick();setInterval(tick,4500);
+// Topbar live date
+(function(){
+  var d = new Date();
+  document.getElementById('topDate').textContent =
+    d.toLocaleDateString('en-BD', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
+})();
 
-let activeTopic="All";
-function filterTopic(t,btn){
-  activeTopic=t;
-  document.querySelectorAll(".topic-btn").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  applyFilter();
-}
-function applyFilter(){
-  const cards=document.querySelectorAll(".news-card,.hero-main,.hero-side-item");
-  let v=0;
-  cards.forEach(el=>{
-    const show=activeTopic==="All"||el.dataset.topic===activeTopic;
-    el.classList.toggle("hidden",!show);
-    if(show)v++;
+// Category filter
+function filterCat(cat, btn) {
+  document.querySelectorAll('.tab-btn').forEach(function(b){
+    b.classList.remove('active');
+    b.setAttribute('aria-pressed','false');
   });
-  const nr=document.getElementById("no-results");
-  if(nr)nr.classList.toggle("hidden",v>0);
-}
-</script>
-</body>
-</html>
+  btn.classList.add('active');
+  btn.setAttribute('aria-pressed','true');
+
+  // Hero section
+  var hw = document.getElementById('heroWrap');
+  if (hw) hw.style.display = (cat==='All' || hw.dataset.cat===cat) ? '' : 'none';
+
+  // Featured cards
+  var fw = document.getElementById('featuredWrap');
+  if (fw) {
+    var vis = false;
+    fw.querySelectorAll('.feat-card').forEach(function(c){

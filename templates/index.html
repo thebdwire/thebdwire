@@ -1,60 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheBDWire</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #f4f4f4; color: #333; }
-        header { background: #006847; color: white; padding: 16px 24px; }
-        header h1 { font-size: 1.8rem; }
-        header p { font-size: 0.9rem; opacity: 0.85; }
-        .container { max-width: 960px; margin: 24px auto; padding: 0 16px; }
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-        .card { background: white; border-radius: 8px; padding: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-        .card h3 { font-size: 0.95rem; margin-bottom: 8px; }
-        .card h3 a { text-decoration: none; color: #006847; }
-        .card h3 a:hover { text-decoration: underline; }
-        .card .source { font-size: 0.75rem; color: #888; margin-bottom: 4px; }
-        .card .time { font-size: 0.72rem; color: #aaa; }
-        .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-        .filter-bar button { padding: 6px 14px; border: none; border-radius: 20px; background: #ddd; cursor: pointer; font-size: 0.82rem; }
-        .filter-bar button.active { background: #006847; color: white; }
-        footer { text-align: center; padding: 24px; font-size: 0.8rem; color: #aaa; }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>TheBDWire — Bangladesh &amp; World News</title>
+<style>
+  :root{
+    --green:#006847;--green-dark:#004f36;--green-light:#e6f2ed;
+    --red:#c0392b;--text:#1a1a2e;--muted:#6c757d;
+    --bg:#f0f4f8;--white:#ffffff;
+    --card-shadow:0 2px 12px rgba(0,0,0,0.08);--radius:10px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);}
+  header{background:linear-gradient(135deg,var(--green-dark) 0%,var(--green) 100%);color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.2);}
+  .header-inner{max-width:1200px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  .logo h1{font-size:1.7rem;font-weight:800;}
+  .logo span{font-size:0.8rem;opacity:0.8;display:block;margin-top:2px;}
+  .live-badge{background:var(--red);color:#fff;font-size:0.7rem;font-weight:700;padding:3px 9px;border-radius:20px;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.6;}}
+  .stats{font-size:0.82rem;opacity:0.85;}
+  .nav-bar{background:var(--green-dark);padding:0 20px;}
+  .nav-inner{max-width:1200px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+  .nav-inner::-webkit-scrollbar{display:none;}
+  .nav-btn{background:none;border:none;color:rgba(255,255,255,0.75);padding:10px 16px;cursor:pointer;font-size:0.83rem;white-space:nowrap;border-bottom:3px solid transparent;transition:all 0.2s;}
+  .nav-btn:hover{color:#fff;}
+  .nav-btn.active{color:#fff;border-bottom-color:#fff;font-weight:600;}
+  .filter-wrap{max-width:1200px;margin:20px auto 0;padding:0 20px;}
+  .filter-bar{display:flex;flex-wrap:wrap;gap:8px;padding:14px 16px;background:var(--white);border-radius:var(--radius);box-shadow:var(--card-shadow);}
+  .filter-bar button{padding:5px 14px;border:1.5px solid #ddd;border-radius:20px;background:#fff;cursor:pointer;font-size:0.78rem;color:var(--muted);transition:all 0.2s;}
+  .filter-bar button:hover{border-color:var(--green);color:var(--green);}
+  .filter-bar button.active{background:var(--green);color:#fff;border-color:var(--green);}
+  .ticker-wrap{background:var(--red);color:#fff;overflow:hidden;padding:7px 0;margin-top:16px;}
+  .ticker-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:12px;}
+  .ticker-label{font-weight:700;font-size:0.78rem;white-space:nowrap;background:rgba(0,0,0,0.25);padding:2px 8px;border-radius:4px;}
+  .ticker-text{font-size:0.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .main{max-width:1200px;margin:20px auto 40px;padding:0 20px;}
+  .section-title{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+  .section-title h2{font-size:1.1rem;font-weight:700;color:var(--green-dark);}
+  .section-title::after{content:'';flex:1;height:2px;background:linear-gradient(to right,var(--green-light),transparent);}
+  .hero-grid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:30px;}
+  @media(max-width:768px){.hero-grid{grid-template-columns:1fr;}}
+  .hero-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--card-shadow);}
+  .hero-card img{width:100%;height:260px;object-fit:cover;}
+  .hero-card .no-img{width:100%;height:260px;background:linear-gradient(135deg,var(--green-light),#c8e6c9);display:flex;align-items:center;justify-content:center;font-size:3rem;}
+  .hero-body{padding:18px;}
+  .source-tag{font-size:0.72rem;font-weight:700;color:#fff;background:var(--green);padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:8px;}
+  .hero-body h3{font-size:1.15rem;font-weight:700;line-height:1.4;margin-bottom:8px;}
+  .hero-body h3 a{text-decoration:none;color:var(--text);}
+  .hero-body h3 a:hover{color:var(--green);}
+  .hero-body p{font-size:0.85rem;color:var(--muted);line-height:1.5;}
+  .time{font-size:0.72rem;color:#aaa;margin-top:8px;}
+  .side-stack{display:flex;flex-direction:column;gap:12px;}
+  .side-card{background:var(--white);border-radius:var(--radius);padding:12px 14px;box-shadow:var(--card-shadow);display:flex;gap:12px;align-items:flex-start;}
+  .side-card img{width:70px;height:60px;object-fit:cover;border-radius:6px;flex-shrink:0;}
+  .side-card .no-img-sm{width:70px;height:60px;background:var(--green-light);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+  .sc-body .source-tag{font-size:0.68rem;color:var(--green);background:none;padding:0;margin-bottom:4px;font-weight:700;}
+  .sc-body h4{font-size:0.83rem;font-weight:600;line-height:1.35;}
+  .sc-body h4 a{text-decoration:none;color:var(--text);}
+  .sc-body h4 a:hover{color:var(--green);}
+  .news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+  .card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--card-shadow);transition:transform 0.2s,box-shadow 0.2s;}
+  .card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.12);}
+  .card img{width:100%;height:160px;object-fit:cover;}
+  .card .no-img{width:100%;height:160px;background:linear-gradient(135deg,var(--green-light),#c8e6c9);display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
+  .card-body{padding:14px;}
+  .card-body .meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+  .cat-tag{font-size:0.65rem;color:var(--muted);border:1px solid #ddd;padding:2px 6px;border-radius:4px;}
+  .card-body h3{font-size:0.88rem;font-weight:600;line-height:1.4;margin-bottom:6px;}
+  .card-body h3 a{text-decoration:none;color:var(--text);}
+  .card-body h3 a:hover{color:var(--green);}
+  .card-body p{font-size:0.78rem;color:var(--muted);line-height:1.45;}
+  footer{background:var(--green-dark);color:rgba(255,255,255,0.7);text-align:center;padding:24px 20px;}
+  footer strong{color:#fff;}
+  footer p{font-size:0.8rem;margin-top:4px;}
+  .hidden{display:none!important;}
+</style>
 </head>
 <body>
-    <header>
-        <h1>🇧🇩 TheBDWire</h1>
-        <p>Real-time news from Bangladesh's top sources</p>
-    </header>
-    <div class="container">
-        <div class="filter-bar">
-            <button class="active" onclick="filterNews('all', this)">All</button>
-            {% for source in sources %}
-            <button onclick="filterNews('{{ source }}', this)">{{ source }}</button>
-            {% endfor %}
-        </div>
-        <div class="news-grid" id="news-grid">
-            {% for item in news %}
-            <div class="card" data-source="{{ item.source }}">
-                <div class="source">{{ item.source }}</div>
-                <h3><a href="{{ item.link }}" target="_blank">{{ item.title }}</a></h3>
-                <div class="time">{{ item.time }}</div>
-            </div>
-            {% endfor %}
-        </div>
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <h1>🇧🇩 TheBDWire</h1>
+      <span>Bangladesh &amp; World News Aggregator</span>
     </div>
-    <footer>© 2025 TheBDWire — Aggregated from public RSS feeds</footer>
-    <script>
-        function filterNews(source, btn) {
-            document.querySelectorAll('.filter-bar button').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            document.querySelectorAll('.card').forEach(card => {
-                card.style.display = (source === 'all' || card.dataset.source === source) ? 'block' : 'none';
-            });
-        }
-    </script>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="live-badge">🔴 LIVE</span>
+      <span class="stats">{{ total }} stories loaded</span>
+    </div>
+  </div>
+</header>
+<div class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="filterCat('all',this)">🌐 All News</button>
+    <button class="nav-btn" onclick="filterCat('Bangladesh',this)">🇧🇩 Bangladesh</button>
+    <button class="nav-btn" onclick="filterCat('International',this)">🌍 International</button>
+  </div>
+</div>
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-label">BREAKING</span>
+    <span class="ticker-text" id="ticker-text">Loading latest headlines...</span>
+  </div>
+</div>
+<div class="filter-wrap">
+  <div class="filter-bar">
+    <button class="active" onclick="filterSource('all',this)">All Sources</button>
+    {% for source in sources %}
+    <button onclick="filterSource('{{ source }}',this)">{{ source }}</button>
+    {% endfor %}
+  </div>
+</div>
+<div class="main">
+  <div class="section-title"><h2>🔥 Top Stories</h2></div>
+  <div class="hero-grid">
+    {% if news|length > 0 %}
+    {% set hero = news[0] %}
+    <div class="hero-card" data-source="{{ hero.source }}" data-cat="{{ hero.category }}">
+      {% if hero.image %}<img src="{{ hero.image }}" alt="{{ hero.title }}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="no-img" style="display:none">📰</div>
+      {% else %}<div class="no-img">📰</div>{% endif %}
+      <div class="hero-body">
+        <span class="source-tag">{{ hero.source }}</span>
+        <h3><a href="{{ hero.link }}" target="_blank">{{ hero.title }}</a></h3>
+        <p>{{ hero.summary }}</p>
+        <div class="time">🕐 {{ hero.time }}</div>
+      </div>
+    </div>
+    <div class="side-stack">
+      {% for item in news[1:4] %}
+      <div class="side-card" data-source="{{ item.source }}" data-cat="{{ item.category }}">
+        {% if item.image %}<img src="{{ item.image }}" alt="{{ item.title }}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <div class="no-img-sm" style="display:none">📰</div>
+        {% else %}<div class="no-img-sm">📰</div>{% endif %}
+        <div class="sc-body">
+          <div class="source-tag">{{ item.source }}</div>
+          <h4><a href="{{ item.link }}" target="_blank">{{ item.title }}</a></h4>
+          <div class="time">🕐 {{ item.time }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  <div class="section-title"><h2>📰 All Stories</h2></div>
+  <div class="news-grid" id="news-grid">
+    {% for item in news[4:] %}
+    <div class="card" data-source="{{ item.source }}" data-cat="{{ item.category }}">
+      {% if item.image %}<img src="{{ item.image }}" alt="{{ item.title }}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="no-img" style="display:none">📰</div>
+      {% else %}<div class="no-img">📰</div>{% endif %}
+      <div class="card-body">
+        <div class="meta">
+          <span class="source-tag">{{ item.source }}</span>
+          <span class="cat-tag">{{ item.category }}</span>
+        </div>
+        <h3><a href="{{ item.link }}" target="_blank">{{ item.title }}</a></h3>
+        <p>{{ item.summary }}</p>
+        <div class="time">🕐 {{ item.time }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+<footer>
+  <strong>🇧🇩 TheBDWire</strong>
+  <p>Aggregated from {{ sources|length }} trusted sources — Bangladesh &amp; World News — Updated every 10 minutes</p>
+  <p style="margin-top:8px;font-size:0.75rem;">&copy; 2025 TheBDWire. All rights reserved.</p>
+</footer>
+<script>
+  const titles=[{% for item in news[:10] %}"{{ item.title|replace('"','') }}",{% endfor %}];
+  let ti=0;
+  function rotateTicker(){if(titles.length){document.getElementById("ticker-text").textContent=titles[ti%titles.length];ti++;}}
+  rotateTicker();setInterval(rotateTicker,4000);
+  let currentCat="all",currentSrc="all";
+  function filterCat(cat,btn){
+    currentCat=cat;
+    document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".filter-bar button").forEach(b=>b.classList.remove("active"));
+    document.querySelector(".filter-bar button").classList.add("active");
+    currentSrc="all";applyFilters();
+  }
+  function filterSource(src,btn){
+    currentSrc=src;
+    document.querySelectorAll(".filter-bar button").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");applyFilters();
+  }
+  function applyFilters(){
+    document.querySelectorAll(".card,.hero-card,.side-card").forEach(el=>{
+      const srcMatch=currentSrc==="all"||el.dataset.source===currentSrc;
+      const catMatch=currentCat==="all"||el.dataset.cat===currentCat;
+      el.classList.toggle("hidden",!(srcMatch&&catMatch));
+    });
+  }
+</script>
 </body>
 </html>
